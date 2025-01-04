@@ -8,7 +8,6 @@ import SignOutButton from './SignOutButton.js'
 export default function AuthPage({ user, setUser }) {
   return (
     <Container>
-      <h1>Tactico</h1>
       {!user.token && (
         <>
           <SignUpForm setUser={setUser} />
