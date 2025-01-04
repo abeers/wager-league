@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import api from '../api'
+import api from '../api/data'
 
 export default function Leagues() {
   const [leagues, setLeagues] = useState([])

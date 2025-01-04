@@ -30,6 +30,7 @@ export default function LandingPage() {
           <p>Track your results for events and compare to other users</p>
         </Link>
       </div>
+      <Link to='/auth'>Sign Up or Log In Now!</Link>
     </div>
   )
 }
