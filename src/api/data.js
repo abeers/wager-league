@@ -1,13 +1,19 @@
+import axios from 'axios'
+
 const baseUrl = 'http://localhost:4000'
 
-const getAllLeagues = () => fetch(`${baseUrl}/leagues`)
-const getAllEvents = () => fetch(`${baseUrl}/events`)
-const getAllResults = () => fetch(`${baseUrl}/results`)
+export const getAllLeagues = () => fetch(`${baseUrl}/leagues`)
 
-const api = {
-  getAllLeagues,
-  getAllEvents,
-  getAllResults,
+export const createLeague = (data, token) => {
+  return axios({
+    url: `${baseUrl}/leagues`,
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: { league: data },
+  })
 }
 
-export default api
+export const getAllEvents = () => fetch(`${baseUrl}/events`)
+// const getAllResults = () => fetch(`${baseUrl}/results`)

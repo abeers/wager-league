@@ -2,15 +2,15 @@ import { useEffect, useState } from 'react'
 import api from '../api/data'
 
 export default function Results() {
-  const [results, setResults] = useState([])
+  const [results, setResults] = useState(['4-2', '0-5', 'Did not play'])
 
-  useEffect(() => {
-    api
-      .getAllResults()
-      .then((response) => response.json())
-      .then(({ results }) => setResults(results))
-      .catch(console.error)
-  }, [])
+  // useEffect(() => {
+  //   api
+  //     .getAllResults()
+  //     .then((response) => response.json())
+  //     .then(({ results }) => setResults(results))
+  //     .catch(console.error)
+  // }, [])
 
   return (
     <div className='landing-page'>

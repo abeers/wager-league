@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react'
-import api from '../api/data'
+import { getAllLeagues } from '../api/data'
+import CreateLeagueForm from './CreateLeagueForm'
 
-export default function Leagues() {
+export default function Leagues({ user }) {
   const [leagues, setLeagues] = useState([])
 
   useEffect(() => {
-    api
-      .getAllLeagues()
+    getAllLeagues()
       .then((response) => response.json())
       .then(({ leagues }) => setLeagues(leagues))
       .catch(console.error)
@@ -19,10 +19,14 @@ export default function Leagues() {
         <p>View your leagues</p>
       </div>
       <ul>
-        {leagues?.map((league) => (
-          <li>{league}</li>
-        ))}
+        {leagues?.map(
+          ({ name }) => (
+            <li>{name}</li>
+          )
+          // ({ isPublic }) => isPublic
+        )}
       </ul>
+      <CreateLeagueForm token={user.token} />
     </div>
   )
 }

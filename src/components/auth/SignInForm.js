@@ -1,18 +1,24 @@
 import { useState } from 'react'
+import { useNavigate } from 'react-router'
 import { Form, Button } from 'react-bootstrap'
 
 import { signIn } from '../../api/auth'
 
-const SignInForm = ({ setUser }) => {
+const SignInForm = ({ setUser, history }) => {
   const [formData, setFormData] = useState({
     identifier: '',
     password: '',
   })
 
+  const navigate = useNavigate()
+
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    signIn(formData).then((response) => setUser(response.data.user))
+    signIn(formData)
+      .then((response) => setUser(response.data.user))
+      .then(() => navigate('/'))
+      .catch(console.error)
   }
 
   const handleChange = (event) => {

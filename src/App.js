@@ -22,7 +22,7 @@ function App() {
           path='/auth'
           element={<AuthPage user={user} setUser={setUser} />}
         />
-        <Route path='/leagues' element={<Leagues />} />
+        <Route path='/leagues' element={<Leagues user={user} />} />
         <Route path='/events' element={<Events />} />
         <Route path='/results' element={<Results />} />
       </Routes>

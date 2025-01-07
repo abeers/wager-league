@@ -1,12 +1,11 @@
 import { useEffect, useState } from 'react'
-import api from '../api/data'
+import { getAllEvents } from '../api/data'
 
 export default function Events() {
   const [events, setEvents] = useState([])
 
   useEffect(() => {
-    api
-      .getAllEvents()
+    getAllEvents()
       .then((response) => response.json())
       .then(({ events }) => setEvents(events))
       .catch(console.error)

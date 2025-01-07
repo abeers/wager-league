@@ -41,15 +41,7 @@ export default function NavDrawer({ user, setUser }) {
                 </NavDropdown.Item>
               </NavDropdown>
             </Nav>
-            <Form className='d-flex'>
-              <Form.Control
-                type='search'
-                placeholder='Search'
-                className='me-2'
-                aria-label='Search'
-              />
-              <Button variant='outline-success'>Search</Button>
-            </Form>
+            <p>{user.username}</p>
             {/* <AuthPage user={user} setUser={setUser} /> */}
           </Offcanvas.Body>
         </Navbar.Offcanvas>
