@@ -5,6 +5,7 @@ import Nav from 'react-bootstrap/Nav'
 import Navbar from 'react-bootstrap/Navbar'
 import NavDropdown from 'react-bootstrap/NavDropdown'
 import Offcanvas from 'react-bootstrap/Offcanvas'
+import { Link } from 'react-router'
 // import AuthPage from '../auth/AuthPage'
 
 export default function NavDrawer({ user, setUser }) {
@@ -24,11 +25,19 @@ export default function NavDrawer({ user, setUser }) {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className='justify-content-end flex-grow-1 pe-3'>
-              <Nav.Link href='/'>Home</Nav.Link>
-              <Nav.Link href='/leagues'>Leagues</Nav.Link>
-              <Nav.Link href='/events'>Events</Nav.Link>
-              <Nav.Link href='/results'>Results</Nav.Link>
-              <NavDropdown
+              <Nav.Link>
+                <Link to='/'>Home</Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link to='/leagues'>Leagues</Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link to='/events'>Events</Link>
+              </Nav.Link>
+              <Nav.Link>
+                <Link to='/results'>Results</Link>
+              </Nav.Link>
+              {/* <NavDropdown
                 title='Dropdown'
                 id={`offcanvasNavbarDropdown-expand`}>
                 <NavDropdown.Item href='#action3'>Action</NavDropdown.Item>
@@ -39,9 +48,13 @@ export default function NavDrawer({ user, setUser }) {
                 <NavDropdown.Item href='#action5'>
                   Something else here
                 </NavDropdown.Item>
-              </NavDropdown>
+              </NavDropdown> */}
+              <Nav.Link>
+                <Link to='/auth'>
+                  {user.username ? user.username : 'Sign Up or Log In'}
+                </Link>
+              </Nav.Link>
             </Nav>
-            <p>{user.username}</p>
             {/* <AuthPage user={user} setUser={setUser} /> */}
           </Offcanvas.Body>
         </Navbar.Offcanvas>

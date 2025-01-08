@@ -5,9 +5,8 @@ import { signOut } from '../../api/auth'
 const SignOutButton = ({ token, setUser }) => {
   const handleClick = () => {
     signOut(token).then(() => {
-      setUser((prevUser) => {
-        return { ...prevUser, token: null }
-      })
+      setUser({})
+      localStorage.clear()
     })
   }
 

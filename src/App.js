@@ -1,6 +1,6 @@
 import './App.css'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router'
 import Events from './Events/Events'
 import LandingPage from './LandingPage/LandingPage'
@@ -13,6 +13,17 @@ function App() {
   const [user, setUser] = useState({
     token: null,
   })
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('user')
+    if (loggedInUser) {
+      console.log('loggedInUser: ', loggedInUser)
+      const foundUser = JSON.parse(loggedInUser)
+      console.log('foundUser: ', foundUser)
+      setUser(foundUser)
+    }
+  }, [])
+
   return (
     <>
       <NavDrawer user={user} setUser={setUser} />
