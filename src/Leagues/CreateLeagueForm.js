@@ -54,7 +54,7 @@ const CreateLeagueForm = ({ token }) => {
         <Form.Label>Public</Form.Label>
         <Form.Check
           name='isPublic'
-          value={isPublic}
+          checked={isPublic}
           type='checkbox'
           onChange={handleCheckboxChange}
         />

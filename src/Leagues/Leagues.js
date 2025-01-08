@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
-import { getAllLeagues } from '../api/data'
+import { getAllLeagues, joinLeague } from '../api/data'
 import CreateLeagueForm from './CreateLeagueForm'
+import { Button } from 'react-bootstrap'
 
 export default function Leagues({ user }) {
   const [leagues, setLeagues] = useState([])
@@ -11,6 +12,11 @@ export default function Leagues({ user }) {
       .then(({ leagues }) => setLeagues(leagues))
       .catch(console.error)
   }, [])
+  console.log('leagues: ', leagues)
+
+  const handleJoin = (id) => {
+    joinLeague(id, user.token)
+  }
 
   return (
     <div className='landing-page'>
@@ -20,13 +26,16 @@ export default function Leagues({ user }) {
       </div>
       <ul>
         {leagues?.map(
-          ({ name }) => (
-            <li>{name}</li>
-          )
-          // ({ isPublic }) => isPublic
+          ({ _id, name, isPublic }) =>
+            isPublic && (
+              <>
+                <li>{name}</li>
+                <Button onClick={() => handleJoin(_id)}>Join</Button>
+              </>
+            )
         )}
       </ul>
-      <CreateLeagueForm token={user.token} />
+      {user.token && <CreateLeagueForm token={user.token} />}
     </div>
   )
 }

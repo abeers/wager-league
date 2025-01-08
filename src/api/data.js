@@ -15,5 +15,15 @@ export const createLeague = (data, token) => {
   })
 }
 
+export const joinLeague = (leagueId, token) => {
+  return axios({
+    url: `${baseUrl}/leagues/${leagueId}`,
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    }
+  })
+}
+
 export const getAllEvents = () => fetch(`${baseUrl}/events`)
 // const getAllResults = () => fetch(`${baseUrl}/results`)
