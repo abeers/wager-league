@@ -1,21 +1,28 @@
 import { useEffect, useState } from 'react'
-import { getAllLeagues, joinLeague } from '../api/data'
+import { deleteLeague, getAllLeagues, joinLeague } from '../api/data'
 import CreateLeagueForm from './CreateLeagueForm'
 import { Button } from 'react-bootstrap'
+import { Link } from 'react-router'
 
 export default function Leagues({ user }) {
   const [leagues, setLeagues] = useState([])
 
-  useEffect(() => {
+  const refreshLeagues = () =>
     getAllLeagues()
       .then((response) => response.json())
       .then(({ leagues }) => setLeagues(leagues))
       .catch(console.error)
-  }, [])
-  console.log('leagues: ', leagues)
 
-  const handleJoin = (id) => {
+  useEffect(() => {
+    refreshLeagues()
+  }, [])
+
+  const handleJoinLeague = (id) => {
     joinLeague(id, user.token)
+  }
+
+  const handleDeleteLeague = (id) => {
+    deleteLeague(id, user.token).then(refreshLeagues)
   }
 
   return (
@@ -24,18 +31,19 @@ export default function Leagues({ user }) {
         <h1>Leagues</h1>
         <p>View your leagues</p>
       </div>
-      <ul>
-        {leagues?.map(
-          ({ _id, name, isPublic }) =>
-            isPublic && (
-              <>
-                <li>{name}</li>
-                <Button onClick={() => handleJoin(_id)}>Join</Button>
-              </>
-            )
-        )}
-      </ul>
-      {user.token && <CreateLeagueForm token={user.token} />}
+      {leagues?.map(
+        ({ _id, name, isPublic }) =>
+          isPublic && (
+            <>
+              <Link to={`/leagues/${_id}`}>{name}</Link>
+              <Button onClick={() => handleJoinLeague(_id)}>Join</Button>
+              <Button onClick={() => handleDeleteLeague(_id)}>Delete</Button>
+            </>
+          )
+      )}
+      {user.token && (
+        <CreateLeagueForm token={user.token} refreshLeagues={refreshLeagues} />
+      )}
     </div>
   )
 }

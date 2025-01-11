@@ -3,7 +3,7 @@ import { Form, Button } from 'react-bootstrap'
 
 import { createLeague } from '../api/data'
 
-const CreateLeagueForm = ({ token }) => {
+const CreateLeagueForm = ({ token, refreshLeagues }) => {
   const [formData, setFormData] = useState({
     name: '',
     isPublic: true,
@@ -12,9 +12,9 @@ const CreateLeagueForm = ({ token }) => {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    createLeague(formData, token).then((response) =>
-      console.log('response: ', response)
-    )
+    createLeague(formData, token)
+      .then(refreshLeagues)
+      .then(setFormData({ name: '', isPublic: true }))
   }
 
   const handleChange = (event) => {
