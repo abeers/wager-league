@@ -17,7 +17,9 @@ export default function League({ user }) {
     refreshLeague()
   }, [])
 
-  const { name, members, owner } = league
+  console.log('league: ', league)
+
+  const { name, members, events, owner } = league
 
   return (
     <div className='landing-page'>
@@ -27,6 +29,12 @@ export default function League({ user }) {
         Members:
         {members?.map(({ username }) => (
           <p>{username}</p>
+        ))}
+      </div>
+      <div>
+        Events:
+        {events?.map(({ name }) => (
+          <p>{name}</p>
         ))}
       </div>
     </div>

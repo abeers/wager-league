@@ -38,4 +38,38 @@ export const deleteLeague = (leagueId, token) => {
 }
 
 export const getAllEvents = () => fetch(`${baseUrl}/events`)
+
+export const getEvent = (id) => fetch(`${baseUrl}/events/${id}`)
+
+export const createEvent = (data, token) => {
+  return axios({
+    url: `${baseUrl}/events`,
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: { event: data },
+  })
+}
+
+export const addEventToLeague = (eventId, leagueId, token) => {
+  return axios({
+    url: `${baseUrl}/leagues/${leagueId}/events/${eventId}`,
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
+
+export const deleteEvent = (eventId, token) => {
+  return axios({
+    url: `${baseUrl}/events/${eventId}`,
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
+
 // const getAllResults = () => fetch(`${baseUrl}/results`)

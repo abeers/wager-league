@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import { useEffect, useState } from 'react'
 import { Route, Routes } from 'react-router'
 import Events from './Events/Events'
+import Event from './Events/Event'
 import LandingPage from './LandingPage/LandingPage'
 import Leagues from './Leagues/Leagues'
 import Results from './Results/Results'
@@ -36,7 +37,8 @@ function App() {
         />
         <Route path='/leagues' exact element={<Leagues user={user} />} />
         <Route path='/leagues/:leagueId' element={<League user={user} />} />
-        <Route path='/events' element={<Events />} />
+        <Route path='/events' exact element={<Events user={user} />} />
+        <Route path='/events/:eventId' element={<Event user={user} />} />
         <Route path='/results' element={<Results />} />
       </Routes>
     </>
