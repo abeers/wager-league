@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { getEvent } from '../api/data'
 import { useParams } from 'react-router'
 import DatePicker from 'react-datepicker'
+import CreatePropForm from '../Props/CreatePropForm'
+import Prop from '../Props/Prop'
 
 export default function Event({ user }) {
   const [event, setEvent] = useState({})
@@ -20,7 +22,7 @@ export default function Event({ user }) {
 
   console.log('event: ', event)
 
-  const { name, submissionDeadline, owner } = event
+  const { name, submissionDeadline, props, owner } = event
 
   return (
     <div className='landing-page'>
@@ -35,6 +37,14 @@ export default function Event({ user }) {
           selected={submissionDeadline}
         />
       </div>
+      {props?.map((prop) => (
+        <Prop prop={prop} />
+      ))}
+      <CreatePropForm
+        eventId={eventId}
+        refreshEvent={refreshEvent}
+        token={user.token}
+      />
       {/* <div>
         Members:
         {members?.map(({ username }) => (

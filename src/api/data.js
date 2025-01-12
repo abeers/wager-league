@@ -72,4 +72,15 @@ export const deleteEvent = (eventId, token) => {
   })
 }
 
+export const createProp = (data, eventId, token) => {
+  return axios({
+    url: `${baseUrl}/props`,
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: { prop: data, eventId },
+  })
+}
+
 // const getAllResults = () => fetch(`${baseUrl}/results`)
