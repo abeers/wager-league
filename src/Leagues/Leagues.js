@@ -32,12 +32,14 @@ export default function Leagues({ user }) {
         <p>View your leagues</p>
       </div>
       {leagues?.map(
-        ({ _id, name, isPublic }) =>
+        ({ _id, name, owner, isPublic }) =>
           isPublic && (
             <>
               <Link to={`/leagues/${_id}`}>{name}</Link>
               <Button onClick={() => handleJoinLeague(_id)}>Join</Button>
-              <Button onClick={() => handleDeleteLeague(_id)}>Delete</Button>
+              {owner._id === user._id && (
+                <Button onClick={() => handleDeleteLeague(_id)}>Delete</Button>
+              )}
             </>
           )
       )}

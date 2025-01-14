@@ -34,12 +34,14 @@ export default function Events({ user }) {
         <p>View your events</p>
       </div>
       {events?.map(
-        ({ _id, name, isPublic }) =>
+        ({ _id, name, owner, isPublic }) =>
           isPublic && (
             <>
               <Link to={`/events/${_id}`}>{name}</Link>
               {/* <Button onClick={() => handleJoinEvent(_id)}>Join</Button> */}
-              <Button onClick={() => handleDeleteEvent(_id)}>Delete</Button>
+              {owner === user?._id && (
+                <Button onClick={() => handleDeleteEvent(_id)}>Delete</Button>
+              )}
             </>
           )
       )}

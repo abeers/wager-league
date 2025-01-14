@@ -7,6 +7,7 @@ const CreatePropForm = ({ token, eventId, refreshEvent }) => {
   const [formData, setFormData] = useState({
     prompt: '',
     propType: '',
+    value: '',
   })
 
   const handleSubmit = (event) => {
@@ -26,7 +27,7 @@ const CreatePropForm = ({ token, eventId, refreshEvent }) => {
     setFormData(updatedData)
   }
 
-  const { prompt, propType } = formData
+  const { prompt, propType, value } = formData
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -52,10 +53,22 @@ const CreatePropForm = ({ token, eventId, refreshEvent }) => {
           <option value='overUnder'>Over/Under</option>
           <option value='boolean'>Yes or No</option>
           <option value='multipleChoice'>Multiple Choice</option>
-          <option value='ranking'>Ranked Order</option>
           <option value='openAnswer'>Open Answer</option>
         </Form.Select>
       </Form.Group>
+      {propType === 'overUnder' && (
+        <Form.Group controlId='value'>
+          <Form.Label>Over/Under Line</Form.Label>
+          <Form.Control
+            required
+            type='text'
+            name='value'
+            value={value}
+            placeholder='Enter value'
+            onChange={handleChange}
+          />
+        </Form.Group>
+      )}
       <Button variant='primary' type='submit'>
         Submit
       </Button>

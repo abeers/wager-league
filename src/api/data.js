@@ -83,4 +83,25 @@ export const createProp = (data, eventId, token) => {
   })
 }
 
+export const createOption = (data, propId, token) => {
+  return axios({
+    url: `${baseUrl}/props/${propId}/options`,
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: { option: data },
+  })
+}
+
+export const deleteOption = (propId, optionId, token) => {
+  return axios({
+    url: `${baseUrl}/props/${propId}/options/${optionId}`,
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
+
 // const getAllResults = () => fetch(`${baseUrl}/results`)

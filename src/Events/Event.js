@@ -38,25 +38,20 @@ export default function Event({ user }) {
         />
       </div>
       {props?.map((prop) => (
-        <Prop prop={prop} />
+        <Prop
+          prop={prop}
+          eventOwner={owner}
+          refreshEvent={refreshEvent}
+          user={user}
+        />
       ))}
-      <CreatePropForm
-        eventId={eventId}
-        refreshEvent={refreshEvent}
-        token={user.token}
-      />
-      {/* <div>
-        Members:
-        {members?.map(({ username }) => (
-          <p>{username}</p>
-        ))}
-      </div>
-      <div>
-        Events:
-        {events?.map(({ name }) => (
-          <p>{name}</p>
-        ))}
-      </div> */}
+      {user?._id === owner?._id && (
+        <CreatePropForm
+          eventId={eventId}
+          refreshEvent={refreshEvent}
+          token={user.token}
+        />
+      )}
     </div>
   )
 }
