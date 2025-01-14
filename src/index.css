@@ -11,3 +11,32 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.propWrapper {
+  background-color: #efeada;
+  color: #363537;
+  border: 3px solid #ED7D3A;
+  margin: 3%;
+  padding: 2%
+}
+
+.propContainer {
+  display: flex;
+  justify-content: space-around;
+  gap: 4%
+}
+
+.propOption {
+  flex: 1 1 0px;
+}
+
+.overUnderValue {
+  width: 20%;
+  min-height: 100%;
+  line-height: 300%;
+  text-align: center;
+}
+
+.selectedOption {
+  background-color: #ED7D3A;
+}

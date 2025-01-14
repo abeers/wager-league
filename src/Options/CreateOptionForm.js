@@ -30,7 +30,7 @@ const CreateOptionForm = ({ token, propId, refreshEvent }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId='optionText'>
-        <Form.Label>Option Prompt</Form.Label>
+        <Form.Label>New Option</Form.Label>
         <Form.Control
           required
           type='text'
