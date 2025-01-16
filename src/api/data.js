@@ -39,7 +39,15 @@ export const deleteLeague = (leagueId, token) => {
 
 export const getAllEvents = () => fetch(`${baseUrl}/events`)
 
-export const getEvent = (id) => fetch(`${baseUrl}/events/${id}`)
+export const getEvent = (id, token) => {
+  return axios({
+    url: `${baseUrl}/events/${id}`,
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
 
 export const createEvent = (data, token) => {
   return axios({
@@ -83,6 +91,16 @@ export const createProp = (data, eventId, token) => {
   })
 }
 
+export const deleteProp = (propId, token) => {
+  return axios({
+    url: `${baseUrl}/props/${propId}`,
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
+
 export const createOption = (data, propId, token) => {
   return axios({
     url: `${baseUrl}/props/${propId}/options`,
@@ -101,6 +119,17 @@ export const deleteOption = (propId, optionId, token) => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
+  })
+}
+
+export const updateAnswer = (propId, optionId, token) => {
+  return axios({
+    url: `${baseUrl}/props/${propId}/answers`,
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: { option: optionId },
   })
 }
 

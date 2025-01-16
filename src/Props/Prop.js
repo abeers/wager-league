@@ -1,29 +1,35 @@
-import { useState } from 'react'
-import { deleteOption } from '../api/data'
+import { useEffect, useState } from 'react'
+import { deleteOption, deleteProp, updateAnswer } from '../api/data'
 import OverUnderProp from './OverUnderProp'
 import BooleanProp from './BooleanProp'
 import OpenAnswerProp from './OpenAnswerProp'
 import MultipleChoiceProp from './MultipleChoiceProp'
+import { Button } from 'react-bootstrap'
 
 export default function Prop({ prop, eventOwner, refreshEvent, user }) {
-  const [selectedOption, setSelectedOption] = useState(null)
-  const { _id, prompt, propType, value, options } = prop
+  const { _id, prompt, propType, value, options, answers } = prop
+  const [selectedOption, setSelectedOption] = useState(answers[0]?.optionId)
+
+  useEffect(() => {
+    updateAnswer(_id, selectedOption, user.token)
+  }, [user, _id, selectedOption])
 
   const handleChange = (event) => {
-    console.log('changing')
+    setSelectedOption(event.target.value)
+  }
+
+  const handleDeleteProp = (id) => {
+    deleteProp(id, user.token).then(refreshEvent)
   }
 
   const handleClickedOption = (id) => {
-    console.log('selectedOption: ', selectedOption)
-    console.log('id: ', id)
     setSelectedOption(id)
   }
 
   const handleDeleteOption = (id) => {
     deleteOption(_id, id, user.token).then(refreshEvent)
   }
-  console.log('user: ', user)
-  console.log('eventOwner: ', eventOwner)
+
   return (
     <div className='propWrapper'>
       <h3>{prompt}</h3>
@@ -56,6 +62,9 @@ export default function Prop({ prop, eventOwner, refreshEvent, user }) {
       )}
       {propType === 'openAnswer' && (
         <OpenAnswerProp options={options} handleChange={handleChange} />
+      )}
+      {eventOwner._id === user._id && (
+        <Button onClick={() => handleDeleteProp(_id)}>Delete</Button>
       )}
     </div>
   )

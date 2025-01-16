@@ -12,9 +12,7 @@ import NavDrawer from './components/layout/NavDrawer'
 import League from './Leagues/League'
 
 function App() {
-  const [user, setUser] = useState({
-    token: null,
-  })
+  const [user, setUser] = useState({})
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem('user')
@@ -26,6 +24,7 @@ function App() {
     }
   }, [])
 
+  console.log('user: ', user)
   return (
     <>
       <NavDrawer user={user} setUser={setUser} />

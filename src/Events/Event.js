@@ -11,14 +11,16 @@ export default function Event({ user }) {
   let { eventId } = useParams()
 
   const refreshEvent = () =>
+    user.token &&
     getEvent(eventId, user.token)
-      .then((response) => response.json())
+      .then((response) => response.data)
       .then(({ event }) => setEvent(event[0]))
       .catch(console.error)
 
   useEffect(() => {
+    console.log('user: ', user)
     refreshEvent()
-  }, [])
+  }, [user])
 
   console.log('event: ', event)
 
