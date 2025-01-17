@@ -7,8 +7,7 @@ import Prop from '../Props/Prop'
 
 export default function Event({ user }) {
   const [event, setEvent] = useState({})
-  const [totalScore, setTotalScore] = useState(0)
-  const { _id, name, submissionDeadline, props, owner } = event
+  const { _id, name, submissionDeadline, props, owner, eventScore } = event
 
   let { eventId } = useParams()
 
@@ -33,13 +32,7 @@ export default function Event({ user }) {
     refreshEvent()
   }, [user])
 
-  useEffect(() => {
-    setTotalScore(
-      props?.reduce((acc, { propScore }) => {
-        return acc + propScore
-      }, 0)
-    )
-  }, [props])
+  console.log('event: ', event)
 
   return (
     <div className='landing-page'>
@@ -56,7 +49,7 @@ export default function Event({ user }) {
         />
       </div>
       <div>
-        <p>Score: {totalScore}</p>
+        <p>Score: {eventScore}</p>
       </div>
       {props?.map((prop) => (
         <Prop
