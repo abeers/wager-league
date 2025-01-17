@@ -144,4 +144,15 @@ export const updateAnswer = (eventId, propId, optionId, token) => {
   })
 }
 
+export const updateResult = (eventId, propId, optionId, token) => {
+  return axios({
+    url: `${baseUrl}/events/${eventId}/props/${propId}/results`,
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: { option: optionId },
+  })
+}
+
 // const getAllResults = () => fetch(`${baseUrl}/results`)

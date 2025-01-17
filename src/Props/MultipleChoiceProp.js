@@ -4,11 +4,13 @@ import CreateOptionForm from '../Options/CreateOptionForm'
 export default function MultipleChoiceProp({
   options,
   selectedOption,
+  result,
   propId,
   isOwner,
   pastDeadline,
   handleClickedOption,
   handleDeleteOption,
+  handleDeclareResult,
   refreshEvent,
   token,
 }) {
@@ -19,12 +21,27 @@ export default function MultipleChoiceProp({
           <Card
             onClick={() => handleClickedOption(_id)}
             className={'propOption'}
-            bg={_id === selectedOption && 'primary'}>
+            bg={
+              _id === selectedOption &&
+              (pastDeadline
+                ? _id === result
+                  ? 'success'
+                  : 'danger'
+                : 'primary')
+            }
+            border={pastDeadline && _id === result && 'success'}>
             <Card.Body>
               <p>{optionText}</p>
-              {isOwner && !pastDeadline && (
-                <Button onClick={() => handleDeleteOption(_id)}>Delete</Button>
-              )}
+              {isOwner &&
+                (pastDeadline ? (
+                  <Button onClick={() => handleDeclareResult(_id)}>
+                    Declare Result
+                  </Button>
+                ) : (
+                  <Button onClick={() => handleDeleteOption(_id)}>
+                    Delete
+                  </Button>
+                ))}
             </Card.Body>
           </Card>
         ))}
