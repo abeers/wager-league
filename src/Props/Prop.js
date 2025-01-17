@@ -20,8 +20,8 @@ export default function Prop({
   user,
 }) {
   const { _id, prompt, propType, value, options, answers, results } = prop
-  const [selectedOption, setSelectedOption] = useState(answers[0]?.optionId)
-  const [result, setResult] = useState(results[0]?.optionId)
+  const [selectedOption, setSelectedOption] = useState(answers?.optionId)
+  const [result, setResult] = useState(results?.optionId)
 
   useEffect(() => {
     !pastDeadline && updateAnswer(eventId, _id, selectedOption, user.token)
