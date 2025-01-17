@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getEvent } from '../api/data'
+import { getEvent, updateEvent } from '../api/data'
 import { useParams } from 'react-router'
 import DatePicker from 'react-datepicker'
 import CreatePropForm from '../Props/CreatePropForm'
@@ -10,6 +10,16 @@ export default function Event({ user }) {
 
   let { eventId } = useParams()
 
+  const handleDeadlineChange = (date) => {
+    const updatedData = {
+      ...event,
+      submissionDeadline: date,
+    }
+
+    setEvent(updatedData)
+    updateEvent(updatedData, user.token)
+  }
+
   const refreshEvent = () =>
     user.token &&
     getEvent(eventId, user.token)
@@ -18,13 +28,12 @@ export default function Event({ user }) {
       .catch(console.error)
 
   useEffect(() => {
-    console.log('user: ', user)
     refreshEvent()
   }, [user])
 
   console.log('event: ', event)
 
-  const { name, submissionDeadline, props, owner } = event
+  const { _id, name, submissionDeadline, props, owner } = event
 
   return (
     <div className='landing-page'>
@@ -33,27 +42,31 @@ export default function Event({ user }) {
       <div>
         Deadline:
         <DatePicker
-          readOnly
+          readOnly={owner?._id !== user?._id}
+          selected={submissionDeadline ? new Date(submissionDeadline) : null}
+          onChange={handleDeadlineChange}
           showTimeSelect
           dateFormat='Pp'
-          selected={submissionDeadline}
         />
       </div>
       {props?.map((prop) => (
         <Prop
           prop={prop}
+          pastDeadline={Date.parse(submissionDeadline) < Date.now()}
+          eventId={_id}
           eventOwner={owner}
           refreshEvent={refreshEvent}
           user={user}
         />
       ))}
-      {user?._id === owner?._id && (
-        <CreatePropForm
-          eventId={eventId}
-          refreshEvent={refreshEvent}
-          token={user.token}
-        />
-      )}
+      {user?._id === owner?._id &&
+        Date.parse(submissionDeadline) > Date.now() && (
+          <CreatePropForm
+            eventId={eventId}
+            refreshEvent={refreshEvent}
+            token={user.token}
+          />
+        )}
     </div>
   )
 }

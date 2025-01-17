@@ -60,6 +60,17 @@ export const createEvent = (data, token) => {
   })
 }
 
+export const updateEvent = (data, token) => {
+  return axios({
+    url: `${baseUrl}/events/${data._id}`,
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: { event: data },
+  })
+}
+
 export const addEventToLeague = (eventId, leagueId, token) => {
   return axios({
     url: `${baseUrl}/leagues/${leagueId}/events/${eventId}`,
@@ -122,9 +133,9 @@ export const deleteOption = (propId, optionId, token) => {
   })
 }
 
-export const updateAnswer = (propId, optionId, token) => {
+export const updateAnswer = (eventId, propId, optionId, token) => {
   return axios({
-    url: `${baseUrl}/props/${propId}/answers`,
+    url: `${baseUrl}/events/${eventId}/props/${propId}/answers`,
     method: 'PATCH',
     headers: {
       Authorization: `Bearer ${token}`,

@@ -6,6 +6,7 @@ export default function MultipleChoiceProp({
   selectedOption,
   propId,
   isOwner,
+  pastDeadline,
   handleClickedOption,
   handleDeleteOption,
   refreshEvent,
@@ -21,14 +22,14 @@ export default function MultipleChoiceProp({
             bg={_id === selectedOption && 'primary'}>
             <Card.Body>
               <p>{optionText}</p>
-              {isOwner && (
+              {isOwner && !pastDeadline && (
                 <Button onClick={() => handleDeleteOption(_id)}>Delete</Button>
               )}
             </Card.Body>
           </Card>
         ))}
       </div>
-      {isOwner && (
+      {isOwner && !pastDeadline && (
         <CreateOptionForm
           propId={propId}
           refreshEvent={refreshEvent}

@@ -6,16 +6,25 @@ import OpenAnswerProp from './OpenAnswerProp'
 import MultipleChoiceProp from './MultipleChoiceProp'
 import { Button } from 'react-bootstrap'
 
-export default function Prop({ prop, eventOwner, refreshEvent, user }) {
+export default function Prop({
+  prop,
+  eventId,
+  eventOwner,
+  pastDeadline,
+  refreshEvent,
+  user,
+}) {
   const { _id, prompt, propType, value, options, answers } = prop
   const [selectedOption, setSelectedOption] = useState(answers[0]?.optionId)
 
+  console.log('pastDeadline: ', pastDeadline)
+
   useEffect(() => {
-    updateAnswer(_id, selectedOption, user.token)
-  }, [user, _id, selectedOption])
+    !pastDeadline && updateAnswer(eventId, _id, selectedOption, user.token)
+  }, [user, eventId, _id, selectedOption, pastDeadline])
 
   const handleChange = (event) => {
-    setSelectedOption(event.target.value)
+    !pastDeadline && setSelectedOption(event.target.value)
   }
 
   const handleDeleteProp = (id) => {
@@ -23,7 +32,7 @@ export default function Prop({ prop, eventOwner, refreshEvent, user }) {
   }
 
   const handleClickedOption = (id) => {
-    setSelectedOption(id)
+    !pastDeadline && setSelectedOption(id)
   }
 
   const handleDeleteOption = (id) => {
@@ -52,6 +61,7 @@ export default function Prop({ prop, eventOwner, refreshEvent, user }) {
         <MultipleChoiceProp
           options={options}
           selectedOption={selectedOption}
+          pastDeadline={pastDeadline}
           propId={_id}
           isOwner={user._id === eventOwner._id}
           handleClickedOption={handleClickedOption}
@@ -63,7 +73,7 @@ export default function Prop({ prop, eventOwner, refreshEvent, user }) {
       {propType === 'openAnswer' && (
         <OpenAnswerProp options={options} handleChange={handleChange} />
       )}
-      {eventOwner._id === user._id && (
+      {eventOwner._id === user._id && !pastDeadline && (
         <Button onClick={() => handleDeleteProp(_id)}>Delete</Button>
       )}
     </div>
