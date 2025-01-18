@@ -49,6 +49,13 @@ export const getEvent = (id, token) => {
   })
 }
 
+export const getEventStandings = (id) => {
+  return axios({
+    url: `${baseUrl}/events/${id}/standings`,
+    method: 'GET',
+  })
+}
+
 export const createEvent = (data, token) => {
   return axios({
     url: `${baseUrl}/events`,
