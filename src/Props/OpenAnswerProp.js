@@ -1,6 +1,11 @@
 import { Form } from 'react-bootstrap'
 
-export default function OpenAnswerProp({ value, handleChange }) {
+export default function OpenAnswerProp({
+  openAnswer,
+  handleOpenAnswerChange,
+  handleOpenAnswerBlur,
+}) {
+  console.log('openAnswer: ', openAnswer)
   return (
     <div>
       <div className='propContainer'>
@@ -9,9 +14,10 @@ export default function OpenAnswerProp({ value, handleChange }) {
             required
             type='text'
             name='optionText'
-            value={value}
+            value={openAnswer}
             placeholder='Enter answer'
-            onChange={handleChange}
+            onChange={handleOpenAnswerChange}
+            onBlur={handleOpenAnswerBlur}
           />
         </Form.Group>
       </div>

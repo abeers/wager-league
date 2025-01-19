@@ -17,14 +17,11 @@ function App() {
   useEffect(() => {
     const loggedInUser = localStorage.getItem('user')
     if (loggedInUser) {
-      console.log('loggedInUser: ', loggedInUser)
       const foundUser = JSON.parse(loggedInUser)
-      console.log('foundUser: ', foundUser)
       setUser(foundUser)
     }
   }, [])
 
-  console.log('user: ', user)
   return (
     <>
       <NavDrawer user={user} setUser={setUser} />

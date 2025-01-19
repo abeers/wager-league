@@ -18,7 +18,6 @@ const SignInForm = ({ setUser, history }) => {
     signIn(formData)
       .then((response) => {
         setUser(response.data.user)
-        console.log('response.data.user: ', response.data.user)
         localStorage.setItem('user', JSON.stringify(response.data.user))
       })
       .then(() => navigate('/'))

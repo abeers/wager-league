@@ -151,6 +151,18 @@ export const updateAnswer = (eventId, propId, optionId, token) => {
   })
 }
 
+export const updateOpenAnswer = (eventId, propId, optionText, token) => {
+  console.log('updatingOpenAnswer')
+  return axios({
+    url: `${baseUrl}/events/${eventId}/props/${propId}/openAnswers`,
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: { option: optionText },
+  })
+}
+
 export const updateResult = (eventId, propId, optionId, token) => {
   return axios({
     url: `${baseUrl}/events/${eventId}/props/${propId}/results`,

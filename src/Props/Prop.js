@@ -3,6 +3,7 @@ import {
   deleteOption,
   deleteProp,
   updateAnswer,
+  updateOpenAnswer,
   updateResult,
 } from '../api/data'
 import OverUnderProp from './OverUnderProp'
@@ -21,14 +22,21 @@ export default function Prop({
 }) {
   const { _id, prompt, propType, value, options, answers, results } = prop
   const [selectedOption, setSelectedOption] = useState(answers?.optionId)
+  const [openAnswer, setOpenAnswer] = useState(
+    options?.find(({ _id }) => answers?.optionId === _id)?.optionText || ''
+  )
   const [result, setResult] = useState(results?.optionId)
 
   useEffect(() => {
     !pastDeadline && updateAnswer(eventId, _id, selectedOption, user.token)
   }, [user, eventId, _id, selectedOption, pastDeadline])
 
-  const handleChange = (event) => {
-    !pastDeadline && setSelectedOption(event.target.value)
+  const handleOpenAnswerBlur = () => {
+    !pastDeadline && updateOpenAnswer(eventId, _id, openAnswer, user.token)
+  }
+
+  const handleOpenAnswerChange = (event) => {
+    !pastDeadline && setOpenAnswer(event.target.value)
   }
 
   const handleDeleteProp = (id) => {
@@ -90,7 +98,11 @@ export default function Prop({
         />
       )}
       {propType === 'openAnswer' && (
-        <OpenAnswerProp options={options} handleChange={handleChange} />
+        <OpenAnswerProp
+          openAnswer={openAnswer}
+          handleOpenAnswerBlur={handleOpenAnswerBlur}
+          handleOpenAnswerChange={handleOpenAnswerChange}
+        />
       )}
       {eventOwner._id === user._id && !pastDeadline && (
         <Button onClick={() => handleDeleteProp(_id)}>Delete</Button>
