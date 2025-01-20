@@ -28,17 +28,23 @@ export default function Event({ user }) {
     updateEvent(updatedData, user.token)
   }
 
-  const refreshEventStandings = useCallback(() =>
-    getEventStandings(eventId)
-      .then((response) => response.data)
-      .then(({ standings }) => setStandings(standings)), [eventId])
+  const refreshEventStandings = useCallback(
+    () =>
+      getEventStandings(eventId)
+        .then((response) => response.data)
+        .then(({ standings }) => setStandings(standings)),
+    [eventId]
+  )
 
-  const refreshEvent = useCallback(() =>
-    user.token &&
-    getEvent(eventId, user.token)
-      .then((response) => response.data)
-      .then(({ event }) => setEvent(event[0]))
-      .catch(console.error), [eventId, user])
+  const refreshEvent = useCallback(
+    () =>
+      user.token &&
+      getEvent(eventId, user.token)
+        .then((response) => response.data)
+        .then(({ event }) => setEvent(event[0]))
+        .catch(console.error),
+    [eventId, user]
+  )
 
   useEffect(() => {
     refreshEvent()
@@ -51,20 +57,35 @@ export default function Event({ user }) {
 
   console.log('event: ', event)
   console.log('standings: ', standings)
+  const pastDeadline = Date.parse(submissionDeadline) < Date.now()
+  const isOwner = user?._id === owner?._id
+  const submissionDate = new Date(submissionDeadline)
 
   return (
     <div className='landing-page'>
       <h1>{name}</h1>
       <div>Creator: {owner?.username}</div>
       <div>
-        Deadline:
-        <DatePicker
-          readOnly={owner?._id !== user?._id}
-          selected={submissionDeadline ? new Date(submissionDeadline) : null}
-          onChange={handleDeadlineChange}
-          showTimeSelect
-          dateFormat='Pp'
-        />
+        Submission Deadline:
+        {isOwner ? (
+          <DatePicker
+            readOnly={owner?._id !== user?._id}
+            selected={submissionDeadline ? submissionDate : null}
+            onChange={handleDeadlineChange}
+            showTimeSelect
+            dateFormat='Pp'
+          />
+        ) : (
+          <span>
+            {submissionDate.toLocaleString([], {
+              month: '2-digit',
+              day: '2-digit',
+              year: '2-digit',
+              hour: '2-digit',
+              minute: '2-digit',
+            })}
+          </span>
+        )}
       </div>
       <Nav fill variant='tabs' activeKey={eventKey} onSelect={handleNavSelect}>
         <Nav.Item>
@@ -76,27 +97,24 @@ export default function Event({ user }) {
       </Nav>
       {eventKey === 'props' && (
         <>
-          <div>
-            <p>Score: {eventScore}</p>
-          </div>
+          <div>{pastDeadline && <p>Score: {eventScore}</p>}</div>
           {props?.map((prop) => (
             <Prop
               prop={prop}
-              pastDeadline={Date.parse(submissionDeadline) < Date.now()}
+              pastDeadline={pastDeadline}
               eventId={_id}
               eventOwner={owner}
               refreshEvent={refreshEvent}
               user={user}
             />
           ))}
-          {user?._id === owner?._id &&
-            Date.parse(submissionDeadline) > Date.now() && (
-              <CreatePropForm
-                eventId={eventId}
-                refreshEvent={refreshEvent}
-                token={user.token}
-              />
-            )}
+          {isOwner && !pastDeadline && (
+            <CreatePropForm
+              eventId={eventId}
+              refreshEvent={refreshEvent}
+              token={user.token}
+            />
+          )}
         </>
       )}
       {eventKey === 'standings' && (

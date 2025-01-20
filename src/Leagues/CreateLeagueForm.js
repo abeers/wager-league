@@ -6,6 +6,7 @@ import { createLeague } from '../api/data'
 const CreateLeagueForm = ({ token, refreshLeagues }) => {
   const [formData, setFormData] = useState({
     name: '',
+    description: '',
     isPublic: true,
   })
 
@@ -14,7 +15,7 @@ const CreateLeagueForm = ({ token, refreshLeagues }) => {
 
     createLeague(formData, token)
       .then(refreshLeagues)
-      .then(setFormData({ name: '', isPublic: true }))
+      .then(setFormData({ name: '', description: '', isPublic: true }))
   }
 
   const handleChange = (event) => {
@@ -35,7 +36,7 @@ const CreateLeagueForm = ({ token, refreshLeagues }) => {
     setFormData(updatedData)
   }
 
-  const { name, isPublic } = formData
+  const { name, description, isPublic } = formData
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -47,6 +48,17 @@ const CreateLeagueForm = ({ token, refreshLeagues }) => {
           name='name'
           value={name}
           placeholder='Enter league name'
+          onChange={handleChange}
+        />
+      </Form.Group>
+      <Form.Group controlId='description'>
+        <Form.Label>League Description</Form.Label>
+        <Form.Control
+          required
+          type='text'
+          name='description'
+          value={description}
+          placeholder='Enter league description'
           onChange={handleChange}
         />
       </Form.Group>

@@ -1,8 +1,8 @@
 
-$secondary: #ed7d3a;
-$primary: #dced31;
+$primary: #ed7d3a;
+$secondary: #dced31;
 $success: #0cce6b;
-$danger: #ef2d56;
+$danger: #de2950;
 $light: #efeada;
 $dark: #363537;
 
@@ -31,7 +31,8 @@ a {
   color: $dark;
   border: 3px solid $secondary;
   margin: 3%;
-  padding: 2%
+  padding: 2%;
+  position: relative;
 }
 
 .propContainer {
@@ -89,25 +90,35 @@ a {
 .league-container {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   gap: 4%
 }
 
 .league-card {
   flex: 1 1 0px;
+  min-width: 150px;
+  position: relative;
 }
 
 .event-container {
   display: flex;
   justify-content: space-around;
+  flex-wrap: wrap;
   gap: 4%
 }
 
 .event-card {
   flex: 1 1 0px;
+  min-width: 200px;
+  position: relative;
 }
 
 .trash-button {
-  text-align: right;
+  border: 0;
+  color: $danger;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 // .form-control {

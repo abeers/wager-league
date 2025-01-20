@@ -9,6 +9,7 @@ import { createEvent } from '../api/data'
 const CreateEventForm = ({ token, refreshEvents }) => {
   const [formData, setFormData] = useState({
     name: '',
+    description: '',
     submissionDeadline: new Date(),
     isPublic: true,
   })
@@ -21,6 +22,7 @@ const CreateEventForm = ({ token, refreshEvents }) => {
       .then(
         setFormData({
           name: '',
+          description: '',
           submissionDeadline: Date.now(),
           isPublic: true,
         })
@@ -54,7 +56,7 @@ const CreateEventForm = ({ token, refreshEvents }) => {
     setFormData(updatedData)
   }
 
-  const { name, submissionDeadline, isPublic } = formData
+  const { name, description, submissionDeadline, isPublic } = formData
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -66,6 +68,17 @@ const CreateEventForm = ({ token, refreshEvents }) => {
           name='name'
           value={name}
           placeholder='Enter event name'
+          onChange={handleChange}
+        />
+      </Form.Group>
+      <Form.Group controlId='description'>
+        <Form.Label>Event Description</Form.Label>
+        <Form.Control
+          required
+          type='text'
+          name='description'
+          value={description}
+          placeholder='Enter event description'
           onChange={handleChange}
         />
       </Form.Group>

@@ -11,7 +11,7 @@ import OverUnderProp from './OverUnderProp'
 import BooleanProp from './BooleanProp'
 import OpenAnswerProp from './OpenAnswerProp'
 import MultipleChoiceProp from './MultipleChoiceProp'
-import { Button } from 'react-bootstrap'
+import TrashButton from '../components/layout/TrashButton'
 
 export default function Prop({
   prop,
@@ -70,6 +70,9 @@ export default function Prop({
 
   return (
     <div className='propWrapper'>
+      {eventOwner._id === user._id && !pastDeadline && (
+        <TrashButton onClick={() => handleDeleteProp(_id)} />
+      )}
       <h3>{prompt}</h3>
       {propType === 'overUnder' && (
         <OverUnderProp
@@ -120,9 +123,6 @@ export default function Prop({
           handleOpenResultChange={handleOpenResultChange}
           handleDeclareOpenResult={handleDeclareOpenResult}
         />
-      )}
-      {eventOwner._id === user._id && !pastDeadline && (
-        <Button onClick={() => handleDeleteProp(_id)}>Delete</Button>
       )}
     </div>
   )

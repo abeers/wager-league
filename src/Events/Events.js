@@ -1,10 +1,9 @@
 import { useEffect, useState } from 'react'
 import { deleteEvent, getAllEvents } from '../api/data'
 import CreateEventForm from './CreateEventForm'
-import { Button, Card } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import { Link } from 'react-router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import TrashButton from '../components/layout/TrashButton'
 
 export default function Events({ user }) {
   const [events, setEvents] = useState([])
@@ -37,22 +36,16 @@ export default function Events({ user }) {
       </div>
       <div className='event-container'>
         {events?.map(
-          ({ _id, name, owner, submissionDeadline, isPublic }) =>
+          ({ _id, name, description, owner, submissionDeadline, isPublic }) =>
             isPublic && (
               <Card className='event-card' key={_id}>
                 <Card.Header>
                   {owner === user._id && (
-                    <div class='trash-button'>
-                      <Button
-                        variant={'danger'}
-                        onClick={() => handleDeleteEvent(_id)}>
-                        <FontAwesomeIcon icon={faTrash} />
-                      </Button>
-                    </div>
+                    <TrashButton onClick={() => handleDeleteEvent(_id)} />
                   )}
                   <Link to={`/events/${_id}`}>{name}</Link>
                 </Card.Header>
-                <Card.Body>Description</Card.Body>
+                <Card.Body>{description}</Card.Body>
                 <Card.Footer>
                   {new Date(submissionDeadline) > Date.now()
                     ? new Date(submissionDeadline).toLocaleString([], {

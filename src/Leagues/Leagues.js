@@ -8,8 +8,7 @@ import {
 import CreateLeagueForm from './CreateLeagueForm'
 import { Button, Card } from 'react-bootstrap'
 import { Link } from 'react-router'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import TrashButton from '../components/layout/TrashButton'
 
 export default function Leagues({ user }) {
   const [leagues, setLeagues] = useState([])
@@ -48,13 +47,7 @@ export default function Leagues({ user }) {
               <Card className='league-card' key={_id}>
                 <Card.Header>
                   {owner === user._id && (
-                    <div class='trash-button'>
-                      <Button
-                        variant={'danger'}
-                        onClick={() => handleDeleteLeague(_id)}>
-                        <FontAwesomeIcon icon={faTrash} />
-                      </Button>
-                    </div>
+                    <TrashButton onClick={() => handleDeleteLeague(_id)} />
                   )}
                   <Link to={`/leagues/${_id}`}>{name}</Link>
                 </Card.Header>

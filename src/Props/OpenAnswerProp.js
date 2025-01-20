@@ -10,8 +10,6 @@ export default function OpenAnswerProp({
   handleOpenResultChange,
   handleDeclareOpenResult,
 }) {
-  console.log('openAnswer: ', openAnswer)
-  console.log('openResult: ', openResult)
   return (
     <div>
       <div className='propContainer'>
@@ -26,16 +24,20 @@ export default function OpenAnswerProp({
             onChange={handleOpenAnswerChange}
             onBlur={handleOpenAnswerBlur}
           />
-          <Form.Control
-            readOnly={!isOwner}
-            type='text'
-            name='optionResult'
-            value={openResult}
-            placeholder='Enter result'
-            onChange={handleOpenResultChange}
-            onBlur={handleDeclareOpenResult}
-          />
         </Form.Group>
+        {pastDeadline && (
+          <Form.Group controlId='optionResult'>
+            <Form.Control
+              readOnly={!isOwner}
+              type='text'
+              name='optionResult'
+              value={openResult}
+              placeholder='Enter result'
+              onChange={handleOpenResultChange}
+              onBlur={handleDeclareOpenResult}
+            />
+          </Form.Group>
+        )}
       </div>
     </div>
   )
