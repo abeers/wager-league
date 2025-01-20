@@ -4,6 +4,7 @@ import {
   deleteProp,
   updateAnswer,
   updateOpenAnswer,
+  updateOpenResult,
   updateResult,
 } from '../api/data'
 import OverUnderProp from './OverUnderProp'
@@ -25,6 +26,9 @@ export default function Prop({
   const [openAnswer, setOpenAnswer] = useState(
     options?.find(({ _id }) => answers?.optionId === _id)?.optionText || ''
   )
+  const [openResult, setOpenResult] = useState(
+    options?.find(({ _id }) => results?.optionId === _id)?.optionText || ''
+  )
   const [result, setResult] = useState(results?.optionId)
 
   useEffect(() => {
@@ -39,6 +43,10 @@ export default function Prop({
     !pastDeadline && setOpenAnswer(event.target.value)
   }
 
+  const handleOpenResultChange = (event) => {
+    pastDeadline && setOpenResult(event.target.value)
+  }
+
   const handleDeleteProp = (id) => {
     deleteProp(id, user.token).then(refreshEvent)
   }
@@ -46,6 +54,10 @@ export default function Prop({
   const handleDeclareResult = (id) => {
     setResult(id)
     updateResult(eventId, _id, id, user.token).then(refreshEvent)
+  }
+
+  const handleDeclareOpenResult = () => {
+    updateOpenResult(eventId, _id, openResult, user.token).then(refreshEvent)
   }
 
   const handleClickedOption = (id) => {
@@ -100,8 +112,13 @@ export default function Prop({
       {propType === 'openAnswer' && (
         <OpenAnswerProp
           openAnswer={openAnswer}
+          openResult={openResult}
+          pastDeadline={pastDeadline}
+          isOwner={user._id === eventOwner._id}
           handleOpenAnswerBlur={handleOpenAnswerBlur}
           handleOpenAnswerChange={handleOpenAnswerChange}
+          handleOpenResultChange={handleOpenResultChange}
+          handleDeclareOpenResult={handleDeclareOpenResult}
         />
       )}
       {eventOwner._id === user._id && !pastDeadline && (

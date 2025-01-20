@@ -1,0 +1,117 @@
+
+$secondary: #ed7d3a;
+$primary: #dced31;
+$success: #0cce6b;
+$danger: #ef2d56;
+$light: #efeada;
+$dark: #363537;
+
+@import "bootstrap";
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+a {
+  color: $dark;
+}
+
+.propWrapper {
+  background-color: $light;
+  color: $dark;
+  border: 3px solid $secondary;
+  margin: 3%;
+  padding: 2%
+}
+
+.propContainer {
+  display: flex;
+  justify-content: space-around;
+  gap: 4%
+}
+
+.propOption {
+  flex: 1 1 0px;
+}
+
+.overUnderValue {
+  width: 20%;
+  min-height: 100%;
+  line-height: 300%;
+  text-align: center;
+}
+
+.selectedOption {
+  background-color: $primary;
+}
+
+.landing-page {
+  background-color: $dark;
+  color: $light;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.landing-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 4%
+}
+
+.landing-call-to-action {
+  background-color: $primary;
+  border: 4px solid $secondary;
+  flex: 1 1 0px;
+  padding: 5px;
+}
+
+.league-page {
+  background-color: $dark;
+  color: $light;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.league-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 4%
+}
+
+.league-card {
+  flex: 1 1 0px;
+}
+
+.event-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 4%
+}
+
+.event-card {
+  flex: 1 1 0px;
+}
+
+.trash-button {
+  text-align: right;
+}
+
+// .form-control {
+//   background-color: $white-bg;
+//   border: 1px solid $light-gray;
+//   border-radius: $border-radius-base;
+// }

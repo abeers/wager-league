@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { getLeague } from '../api/data'
 import { useParams } from 'react-router'
 
@@ -7,15 +7,15 @@ export default function League({ user }) {
 
   let { leagueId } = useParams()
 
-  const refreshLeague = () =>
+  const refreshLeague = useCallback(() =>
     getLeague(leagueId, user.token)
       .then((response) => response.json())
       .then(({ league }) => setLeague(league[0]))
-      .catch(console.error)
+      .catch(console.error), [leagueId, user])
 
   useEffect(() => {
     refreshLeague()
-  }, [])
+  }, [refreshLeague])
 
   console.log('league: ', league)
 

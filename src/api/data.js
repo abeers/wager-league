@@ -27,6 +27,16 @@ export const joinLeague = (leagueId, token) => {
   })
 }
 
+export const leaveLeague = (leagueId, user) => {
+  return axios({
+    url: `${baseUrl}/leagues/${leagueId}/users/${user._id}`,
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${user.token}`,
+    },
+  })
+}
+
 export const deleteLeague = (leagueId, token) => {
   return axios({
     url: `${baseUrl}/leagues/${leagueId}`,
@@ -152,7 +162,6 @@ export const updateAnswer = (eventId, propId, optionId, token) => {
 }
 
 export const updateOpenAnswer = (eventId, propId, optionText, token) => {
-  console.log('updatingOpenAnswer')
   return axios({
     url: `${baseUrl}/events/${eventId}/props/${propId}/openAnswers`,
     method: 'PATCH',
@@ -171,6 +180,17 @@ export const updateResult = (eventId, propId, optionId, token) => {
       Authorization: `Bearer ${token}`,
     },
     data: { option: optionId },
+  })
+}
+
+export const updateOpenResult = (eventId, propId, optionText, token) => {
+  return axios({
+    url: `${baseUrl}/events/${eventId}/props/${propId}/openResults`,
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: { option: optionText },
   })
 }
 

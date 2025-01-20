@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { getEvent, getEventStandings, updateEvent } from '../api/data'
 import { useParams } from 'react-router'
 import DatePicker from 'react-datepicker'
@@ -28,26 +28,26 @@ export default function Event({ user }) {
     updateEvent(updatedData, user.token)
   }
 
-  const refreshEventStandings = () =>
+  const refreshEventStandings = useCallback(() =>
     getEventStandings(eventId)
       .then((response) => response.data)
-      .then(({ standings }) => setStandings(standings))
+      .then(({ standings }) => setStandings(standings)), [eventId])
 
-  const refreshEvent = () =>
+  const refreshEvent = useCallback(() =>
     user.token &&
     getEvent(eventId, user.token)
       .then((response) => response.data)
       .then(({ event }) => setEvent(event[0]))
-      .catch(console.error)
+      .catch(console.error), [eventId, user])
 
   useEffect(() => {
     refreshEvent()
-  }, [user])
+  }, [user, refreshEvent])
 
   useEffect(() => {
     eventKey === 'props' && refreshEvent()
     eventKey === 'standings' && refreshEventStandings()
-  }, [eventKey])
+  }, [eventKey, refreshEvent, refreshEventStandings])
 
   console.log('event: ', event)
   console.log('standings: ', standings)

@@ -25,10 +25,6 @@ export default function LandingPage() {
             like
           </p>
         </Link>
-        <Link to='/results' className='landing-call-to-action'>
-          <h2>Results</h2>
-          <p>Track your results for events and compare to other users</p>
-        </Link>
       </div>
       <Link to='/auth'>Sign Up or Log In Now!</Link>
     </div>
