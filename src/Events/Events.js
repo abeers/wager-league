@@ -2,8 +2,8 @@ import { useEffect, useState } from 'react'
 import { deleteEvent, getAllEvents } from '../api/data'
 import CreateEventForm from './CreateEventForm'
 import { Card } from 'react-bootstrap'
-import { Link } from 'react-router'
 import TrashButton from '../components/layout/TrashButton'
+import LinkTitle from '../components/layout/LinkTitle'
 
 export default function Events({ user }) {
   const [events, setEvents] = useState([])
@@ -40,10 +40,12 @@ export default function Events({ user }) {
             isPublic && (
               <Card className='event-card' key={_id}>
                 <Card.Header>
+                  <div className='spacer'></div>
                   {owner === user._id && (
                     <TrashButton onClick={() => handleDeleteEvent(_id)} />
                   )}
-                  <Link to={`/events/${_id}`}>{name}</Link>
+                  <LinkTitle title={name} link={`/events/${_id}`} />
+                  <div className='spacer'></div>
                 </Card.Header>
                 <Card.Body>{description}</Card.Body>
                 <Card.Footer>

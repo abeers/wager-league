@@ -4,7 +4,7 @@ import { Form, Button } from 'react-bootstrap'
 
 import { signIn } from '../../api/auth'
 
-const SignInForm = ({ setUser, history }) => {
+const SignInForm = ({ setUser }) => {
   const [formData, setFormData] = useState({
     identifier: '',
     password: '',

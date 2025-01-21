@@ -7,11 +7,14 @@ import {
 } from '../api/data'
 import CreateLeagueForm from './CreateLeagueForm'
 import { Button, Card } from 'react-bootstrap'
-import { Link } from 'react-router'
 import TrashButton from '../components/layout/TrashButton'
+import LinkTitle from '../components/layout/LinkTitle'
+import { useNavigate } from 'react-router'
 
 export default function Leagues({ user }) {
   const [leagues, setLeagues] = useState([])
+
+  const navigate = useNavigate()
 
   const refreshLeagues = () =>
     getAllLeagues()
@@ -24,7 +27,7 @@ export default function Leagues({ user }) {
   }, [])
 
   const handleJoinLeague = (id) => {
-    joinLeague(id, user.token)
+    joinLeague(id, user.token).then(() => navigate(`/leagues/${id}`))
   }
 
   const handleLeaveLeague = (id) => {
@@ -42,16 +45,18 @@ export default function Leagues({ user }) {
       </div>
       <div className='league-container'>
         {leagues?.map(
-          ({ _id, name, owner, members, isPublic }) =>
+          ({ _id, name, description, owner, members, isPublic }) =>
             isPublic && (
               <Card className='league-card' key={_id}>
                 <Card.Header>
+                  <div className='spacer'></div>
                   {owner === user._id && (
                     <TrashButton onClick={() => handleDeleteLeague(_id)} />
                   )}
-                  <Link to={`/leagues/${_id}`}>{name}</Link>
+                  <LinkTitle title={name} link={`/leagues/${_id}`} />
+                  <div className='spacer'></div>
                 </Card.Header>
-                <Card.Body>Description</Card.Body>
+                <Card.Body>{description}</Card.Body>
                 <Card.Footer>
                   {members.some((member) => member._id === user._id) ? (
                     <Button onClick={() => handleLeaveLeague(_id)}>

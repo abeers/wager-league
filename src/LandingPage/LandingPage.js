@@ -4,7 +4,7 @@ export default function LandingPage() {
   return (
     <div className='landing-page'>
       <div>
-        <h1>Wager League</h1>
+        <h1 className='title-text'>Wager League</h1>
         <p>
           Join a league, virtually bet on the prompts, and get those bragging
           rights!

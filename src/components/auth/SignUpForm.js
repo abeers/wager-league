@@ -1,9 +1,10 @@
 import { useState } from 'react'
 import { Form, Button } from 'react-bootstrap'
+import { useNavigate } from 'react-router'
 
-import { signUp } from '../../api/auth'
+import { signIn, signUp } from '../../api/auth'
 
-const SignUpForm = () => {
+const SignUpForm = ({ setUser }) => {
   const [formData, setFormData] = useState({
     email: '',
     username: '',
@@ -11,10 +12,22 @@ const SignUpForm = () => {
     passwordConfirmation: '',
   })
 
+  const navigate = useNavigate()
+
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    signUp(formData).then(console.log)
+    signUp(formData)
+      .then(() =>
+        signIn({ identifier: username, password })
+          .then((response) => {
+            setUser(response.data.user)
+            localStorage.setItem('user', JSON.stringify(response.data.user))
+          })
+          .then(() => navigate('/'))
+          .catch(console.error)
+      )
+      .catch(console.error)
   }
 
   const handleChange = (event) => {

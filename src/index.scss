@@ -10,11 +10,19 @@ $dark: #363537;
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: "Nunito Sans", serif;
+  font-optical-sizing: auto;
+  // font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings:
+    "wdth" 100,
+    "YTLC" 500;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+p {
+  margin-bottom: 0;
 }
 
 code {
@@ -43,6 +51,10 @@ a {
 
 .propOption {
   flex: 1 1 0px;
+  width: 200;
+  border-width: 4px;
+  font-size: 1.3rem;
+  padding: 2rem 0.75rem;
 }
 
 .overUnderValue {
@@ -88,15 +100,14 @@ a {
 }
 
 .league-container {
-  display: flex;
-  justify-content: space-around;
-  flex-wrap: wrap;
-  gap: 4%
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  grid-gap: 20px;
+  justify-items: center;
 }
 
 .league-card {
-  flex: 1 1 0px;
-  min-width: 150px;
+  width: 350px;
   position: relative;
 }
 
@@ -109,7 +120,7 @@ a {
 
 .event-card {
   flex: 1 1 0px;
-  min-width: 200px;
+  width: 200px;
   position: relative;
 }
 
@@ -121,8 +132,44 @@ a {
   right: 0;
 }
 
-// .form-control {
-//   background-color: $white-bg;
-//   border: 1px solid $light-gray;
-//   border-radius: $border-radius-base;
-// }
+.title-text {
+  font-family: "Edu SA Beginner", serif;
+  font-optical-sizing: auto;
+  font-weight: 600;
+  font-style: normal;
+}
+
+.spacer {
+  width: 200px;
+  height: 25px;
+  margin-right: 0px;
+}
+
+.link-title {
+  font-family: "Edu SA Beginner", serif;
+  font-size: 1.6rem;
+  font-weight: 600;
+  font-style: normal;
+  text-decoration: none;
+}
+
+.text-capitalize {
+  text-transform: capitalize;
+}
+
+.form-control-complete {
+  // background-color: $white-bg;
+  border: 4px solid $primary;
+}
+
+.form-control-correct {
+  border: 4px solid $success;
+}
+
+.form-control-incorrect {
+  border: 4px solid $danger;
+}
+
+.highlight-table-row {
+  border: 2px solid $primary;
+}

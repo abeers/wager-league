@@ -15,6 +15,14 @@ export default function OpenAnswerProp({
       <div className='propContainer'>
         <Form.Group controlId='optionText'>
           <Form.Control
+            className={`propOption ${
+              openAnswer !== '' &&
+              (pastDeadline
+                ? openAnswer === openResult
+                  ? 'form-control-correct'
+                  : 'form-control-incorrect'
+                : 'form-control-complete')
+            }`}
             required
             readOnly={pastDeadline}
             type='text'
@@ -28,6 +36,7 @@ export default function OpenAnswerProp({
         {pastDeadline && (
           <Form.Group controlId='optionResult'>
             <Form.Control
+              className='propOption form-control-correct'
               readOnly={!isOwner}
               type='text'
               name='optionResult'

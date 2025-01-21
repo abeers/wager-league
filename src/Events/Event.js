@@ -57,13 +57,14 @@ export default function Event({ user }) {
 
   console.log('event: ', event)
   console.log('standings: ', standings)
+  console.log('user: ', user)
   const pastDeadline = Date.parse(submissionDeadline) < Date.now()
   const isOwner = user?._id === owner?._id
   const submissionDate = new Date(submissionDeadline)
 
   return (
     <div className='landing-page'>
-      <h1>{name}</h1>
+      <h1 className='title-text'>{name}</h1>
       <div>Creator: {owner?.username}</div>
       <div>
         Submission Deadline:
@@ -87,7 +88,12 @@ export default function Event({ user }) {
           </span>
         )}
       </div>
-      <Nav fill variant='tabs' activeKey={eventKey} onSelect={handleNavSelect}>
+      <Nav
+        fill
+        className='nav-justified'
+        variant='tabs'
+        activeKey={eventKey}
+        onSelect={handleNavSelect}>
         <Nav.Item>
           <Nav.Link eventKey='props'>Props</Nav.Link>
         </Nav.Item>
@@ -100,6 +106,7 @@ export default function Event({ user }) {
           <div>{pastDeadline && <p>Score: {eventScore}</p>}</div>
           {props?.map((prop) => (
             <Prop
+              key={prop._id}
               prop={prop}
               pastDeadline={pastDeadline}
               eventId={_id}
@@ -130,7 +137,11 @@ export default function Event({ user }) {
             </thead>
             <tbody>
               {standings?.map(({ _id, eventScore }, index) => (
-                <tr>
+                <tr
+                  key={_id?._id}
+                  className={
+                    user._id === _id?._id ? 'highlight-table-row' : undefined
+                  }>
                   <td>{index + 1}</td>
                   <td>{_id?.username}</td>
                   <td>{eventScore}</td>

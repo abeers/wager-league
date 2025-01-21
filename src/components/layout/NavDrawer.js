@@ -8,7 +8,9 @@ export default function NavDrawer({ user, setUser }) {
   return (
     <Navbar expand='md' className='bg-body-tertiary mb-3'>
       <Container fluid>
-        <Navbar.Brand href='/'>Wager League</Navbar.Brand>
+        <Navbar.Brand className='title-text' href='/'>
+          Wager League
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls={`offcanvasNavbar-expand`} />
         <Navbar.Offcanvas
           id={`offcanvasNavbar-expand`}

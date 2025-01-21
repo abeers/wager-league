@@ -19,6 +19,7 @@ export default function MultipleChoiceProp({
       <div className='propContainer'>
         {options?.map(({ _id, optionText }) => (
           <Card
+            key={_id}
             onClick={() => handleClickedOption(_id)}
             className={'propOption'}
             bg={
