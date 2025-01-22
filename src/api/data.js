@@ -37,6 +37,17 @@ export const leaveLeague = (leagueId, user) => {
   })
 }
 
+export const changeLeagueRole = (leagueId, userId, role, token) => {
+  return axios({
+    url: `${baseUrl}/leagues/${leagueId}/users/${userId}`,
+    method: 'PATCH',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: { role },
+  })
+}
+
 export const deleteLeague = (leagueId, token) => {
   return axios({
     url: `${baseUrl}/leagues/${leagueId}`,

@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
-import { getLeague } from '../api/data'
+import { changeLeagueRole, getLeague } from '../api/data'
 import { useParams } from 'react-router'
-import { Table } from 'react-bootstrap'
+import { Form, Table } from 'react-bootstrap'
 
 export default function League({ user }) {
   const [league, setLeague] = useState({})
@@ -17,6 +17,10 @@ export default function League({ user }) {
     [leagueId, user]
   )
 
+  const handleChangeRole = (role, userId) => {
+    changeLeagueRole(leagueId, userId, role, user.token).then(refreshLeague)
+  }
+
   useEffect(() => {
     refreshLeague()
   }, [refreshLeague])
@@ -24,6 +28,8 @@ export default function League({ user }) {
   console.log('league: ', league)
 
   const { name, members, events } = league
+  const isCommissioner =
+    members?.find(({ _id }) => _id === user._id).role === 'commissioner'
 
   return (
     <div className='landing-page'>
@@ -48,7 +54,22 @@ export default function League({ user }) {
                   }>
                   <td>{username}</td>
                   <td>{email}</td>
-                  <td className='text-capitalize'>{role}</td>
+                  {isCommissioner ? (
+                    <td>
+                      <Form.Select
+                        value={role}
+                        onChange={(event) =>
+                          handleChangeRole(event.target.value, _id)
+                        }
+                        aria-label='Default select example'>
+                        <option value='commissioner'>Commissioner</option>
+                        <option value='contributor'>Contributor</option>
+                        <option value='member'>Member</option>
+                      </Form.Select>
+                    </td>
+                  ) : (
+                    <td className='text-capitalize'>{role}</td>
+                  )}
                 </tr>
               ))}
             </tbody>
