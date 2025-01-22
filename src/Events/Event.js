@@ -1,15 +1,22 @@
 import { useCallback, useEffect, useState } from 'react'
-import { getEvent, getEventStandings, updateEvent } from '../api/data'
+import {
+  addEventToLeague,
+  getAddableLeagues,
+  getEvent,
+  getEventStandings,
+  updateEvent,
+} from '../api/data'
 import { useParams } from 'react-router'
 import DatePicker from 'react-datepicker'
 import CreatePropForm from '../Props/CreatePropForm'
 import Prop from '../Props/Prop'
-import { Nav, Table } from 'react-bootstrap'
+import { Dropdown, Nav, Table } from 'react-bootstrap'
 
 export default function Event({ user }) {
   const [event, setEvent] = useState({})
   const [eventKey, setEventKey] = useState('props')
   const [standings, setStandings] = useState([])
+  const [addableLeagues, setAddableLeagues] = useState([])
   const { _id, name, submissionDeadline, props, owner, eventScore } = event
 
   let { eventId } = useParams()
@@ -26,6 +33,10 @@ export default function Event({ user }) {
 
     setEvent(updatedData)
     updateEvent(updatedData, user.token)
+  }
+
+  const handleAddEventToLeague = (leagueId) => {
+    addEventToLeague(_id, leagueId, user.token)
   }
 
   const refreshEventStandings = useCallback(
@@ -46,9 +57,20 @@ export default function Event({ user }) {
     [eventId, user]
   )
 
+  const fetchAddableLeagues = useCallback(
+    () =>
+      user.token &&
+      getAddableLeagues(user.token)
+        .then((response) => response.data)
+        .then(({ addableLeagues }) => setAddableLeagues(addableLeagues))
+        .catch(console.error),
+    [user]
+  )
+
   useEffect(() => {
     refreshEvent()
-  }, [user, refreshEvent])
+    fetchAddableLeagues()
+  }, [user, refreshEvent, fetchAddableLeagues])
 
   useEffect(() => {
     eventKey === 'props' && refreshEvent()
@@ -58,6 +80,7 @@ export default function Event({ user }) {
   console.log('event: ', event)
   console.log('standings: ', standings)
   console.log('user: ', user)
+  console.log('addableLeagues: ', addableLeagues)
   const pastDeadline = Date.parse(submissionDeadline) < Date.now()
   const isOwner = user?._id === owner?._id
   const submissionDate = new Date(submissionDeadline)
@@ -88,6 +111,19 @@ export default function Event({ user }) {
           </span>
         )}
       </div>
+      <Dropdown>
+        <Dropdown.Toggle variant='secondary' id='dropdown-basic'>
+          Add Event to League
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          {addableLeagues.map(({ leagueId, leagueName }) => (
+            <Dropdown.Item onClick={() => handleAddEventToLeague(leagueId)}>
+              {leagueName}
+            </Dropdown.Item>
+          ))}
+        </Dropdown.Menu>
+      </Dropdown>
       <Nav
         fill
         className='nav-justified'

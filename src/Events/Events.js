@@ -31,8 +31,7 @@ export default function Events({ user }) {
   return (
     <div className='landing-page'>
       <div>
-        <h1>Events</h1>
-        <p>View your events</p>
+        <h1>Public Events</h1>
       </div>
       <div className='event-container'>
         {events?.map(

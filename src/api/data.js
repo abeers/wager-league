@@ -4,6 +4,16 @@ const baseUrl = 'http://localhost:4000'
 
 export const getAllLeagues = () => fetch(`${baseUrl}/leagues`)
 
+export const getAddableLeagues = (token) => {
+  return axios({
+    url: `${baseUrl}/leagues/addable`,
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
+
 export const getLeague = (id) => fetch(`${baseUrl}/leagues/${id}`)
 
 export const createLeague = (data, token) => {
