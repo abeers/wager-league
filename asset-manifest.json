@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/wager-league/static/css/main.9ba00a64.css",
+    "main.js": "/wager-league/static/js/main.02776aba.js",
+    "index.html": "/wager-league/index.html",
+    "main.9ba00a64.css.map": "/wager-league/static/css/main.9ba00a64.css.map",
+    "main.02776aba.js.map": "/wager-league/static/js/main.02776aba.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9ba00a64.css",
+    "static/js/main.02776aba.js"
+  ]
+}
