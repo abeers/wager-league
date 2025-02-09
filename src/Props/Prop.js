@@ -22,6 +22,13 @@ export default function Prop({
   user,
 }) {
   const { _id, prompt, propType, value, options, answers, results } = prop
+  console.log('prop: ', prop)
+  console.log('answers: ', answers)
+  console.log('options: ', options)
+  console.log(
+    'text: ',
+    options?.find(({ _id }) => answers?.optionId === _id)?.optionText || ''
+  )
   const [selectedOption, setSelectedOption] = useState(answers?.optionId)
   const [openAnswer, setOpenAnswer] = useState(
     options?.find(({ _id }) => answers?.optionId === _id)?.optionText || ''
@@ -34,6 +41,24 @@ export default function Prop({
   useEffect(() => {
     !pastDeadline && updateAnswer(eventId, _id, selectedOption, user.token)
   }, [user, eventId, _id, selectedOption, pastDeadline])
+
+  useEffect(() => {
+    pastDeadline &&
+      (propType === 'openAnswer'
+        ? setOpenAnswer(
+            options?.find(({ _id }) => answers?.optionId === _id)?.optionText ||
+              ''
+          )
+        : setSelectedOption(answers?.optionId))
+  }, [
+    user,
+    answers,
+    openAnswer,
+    options,
+    pastDeadline,
+    propType,
+    selectedOption,
+  ])
 
   const handleOpenAnswerBlur = () => {
     !pastDeadline && updateOpenAnswer(eventId, _id, openAnswer, user.token)

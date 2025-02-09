@@ -4,20 +4,23 @@ import {
   getAddableLeagues,
   getEvent,
   getEventStandings,
+  getUserEvent,
   updateEvent,
 } from '../api/data'
 import { useParams } from 'react-router'
 import DatePicker from 'react-datepicker'
 import CreatePropForm from '../Props/CreatePropForm'
 import Prop from '../Props/Prop'
-import { Dropdown, Nav, Table } from 'react-bootstrap'
+import { Dropdown, Form, Nav, Table } from 'react-bootstrap'
 
 export default function Event({ user }) {
   const [event, setEvent] = useState({})
+  const { _id, name, submissionDeadline, props, owner, eventScore } = event
   const [eventKey, setEventKey] = useState('props')
   const [standings, setStandings] = useState([])
+  const [selectedUser, setSelectedUser] = useState(user._id)
+  const [selectedUserProps, setSelectedUserProps] = useState([])
   const [addableLeagues, setAddableLeagues] = useState([])
-  const { _id, name, submissionDeadline, props, owner, eventScore } = event
 
   let { eventId } = useParams()
 
@@ -67,6 +70,22 @@ export default function Event({ user }) {
     [user]
   )
 
+  const fetchUserProps = useCallback(
+    (userId) =>
+      user.token &&
+      getUserEvent(eventId, userId, user.token)
+        .then((response) => response.data)
+        .then(({ event }) => {
+          console.log('after fetch')
+          setSelectedUserProps([...event[0]?.props])
+        })
+        .catch(console.error),
+    [user, eventId]
+  )
+
+  const handleChangeSelectedUser = (event) =>
+    setSelectedUser(event.target.value)
+
   useEffect(() => {
     refreshEvent()
     fetchAddableLeagues()
@@ -75,16 +94,22 @@ export default function Event({ user }) {
   useEffect(() => {
     eventKey === 'props' && refreshEvent()
     eventKey === 'standings' && refreshEventStandings()
+    eventKey === 'otherUsersAnswers' && refreshEventStandings()
   }, [eventKey, refreshEvent, refreshEventStandings])
 
-  console.log('event: ', event)
-  console.log('standings: ', standings)
-  console.log('user: ', user)
-  console.log('addableLeagues: ', addableLeagues)
+  useEffect(() => {
+    console.log('here')
+    selectedUser !== '' && fetchUserProps(selectedUser)
+  }, [standings, selectedUser, fetchUserProps])
+
   const pastDeadline = Date.parse(submissionDeadline) < Date.now()
   const isOwner = user?._id === owner?._id
   const submissionDate = new Date(submissionDeadline)
 
+  console.log('selectedUserProps: ', selectedUserProps)
+  console.log('props: ', props)
+  console.log('standings: ', standings)
+  console.log('selectedUser: ', selectedUser)
   return (
     <div className='landing-page'>
       <h1 className='title-text'>{name}</h1>
@@ -136,6 +161,13 @@ export default function Event({ user }) {
         <Nav.Item>
           <Nav.Link eventKey='standings'>Standings</Nav.Link>
         </Nav.Item>
+        {pastDeadline && (
+          <Nav.Item>
+            <Nav.Link eventKey='otherUsersAnswers'>
+              Other Users' Answers
+            </Nav.Link>
+          </Nav.Item>
+        )}
       </Nav>
       {eventKey === 'props' && (
         <>
@@ -185,6 +217,38 @@ export default function Event({ user }) {
               ))}
             </tbody>
           </Table>
+        </>
+      )}
+      {pastDeadline && eventKey === 'otherUsersAnswers' && (
+        <>
+          <Form.Select value={selectedUser} onChange={handleChangeSelectedUser}>
+            {standings?.map(({ _id }) => (
+              <option value={_id._id}>{_id.username}</option>
+            ))}
+          </Form.Select>
+          <div>
+            {pastDeadline && (
+              <p>
+                Score:{' '}
+                {
+                  standings?.find(
+                    ({ _id, eventScore }) => _id._id === selectedUser
+                  )?.eventScore
+                }
+              </p>
+            )}
+          </div>
+          {[...selectedUserProps]?.map((prop) => (
+            <Prop
+              key={prop._id}
+              prop={prop}
+              pastDeadline={pastDeadline}
+              eventId={_id}
+              eventOwner={{ _id: 'abc123' }}
+              refreshEvent={refreshEvent}
+              user={{ _id: selectedUser }}
+            />
+          ))}
         </>
       )}
     </div>

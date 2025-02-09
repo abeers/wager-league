@@ -14,6 +14,8 @@ export default function MultipleChoiceProp({
   refreshEvent,
   token,
 }) {
+  console.log('rendering multiple choice')
+  console.log('selectedOption: ', selectedOption)
   return (
     <>
       <div className='propContainer'>

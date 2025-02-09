@@ -10,6 +10,8 @@ export default function OpenAnswerProp({
   handleOpenResultChange,
   handleDeclareOpenResult,
 }) {
+  console.log('rendering multiple choice')
+  console.log('openAnswer: ', openAnswer)
   return (
     <div>
       <div className='propContainer'>

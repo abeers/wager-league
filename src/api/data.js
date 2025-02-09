@@ -80,6 +80,16 @@ export const getEvent = (id, token) => {
   })
 }
 
+export const getUserEvent = (eventId, userId, token) => {
+  return axios({
+    url: `${baseUrl}/events/${eventId}/users/${userId}`,
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+}
+
 export const getEventStandings = (id) => {
   return axios({
     url: `${baseUrl}/events/${id}/standings`,
