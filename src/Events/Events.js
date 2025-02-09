@@ -5,6 +5,8 @@ import { Card } from 'react-bootstrap'
 import TrashButton from '../components/layout/TrashButton'
 import LinkTitle from '../components/layout/LinkTitle'
 
+const baseUrl = '/wager-league'
+
 export default function Events({ user }) {
   const [events, setEvents] = useState([])
 
@@ -41,7 +43,7 @@ export default function Events({ user }) {
                   {owner === user._id && (
                     <TrashButton onClick={() => handleDeleteEvent(_id)} />
                   )}
-                  <LinkTitle title={name} link={`/events/${_id}`} />
+                  <LinkTitle title={name} link={`${baseUrl}/events/${_id}`} />
                   <div className='spacer'></div>
                 </Card.Header>
                 <Card.Body>{description}</Card.Body>

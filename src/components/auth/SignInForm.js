@@ -20,7 +20,7 @@ const SignInForm = ({ setUser }) => {
         setUser(response.data.user)
         localStorage.setItem('user', JSON.stringify(response.data.user))
       })
-      .then(() => navigate('/'))
+      .then(() => navigate('/wager-league'))
       .catch(console.error)
   }
 

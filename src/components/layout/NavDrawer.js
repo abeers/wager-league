@@ -4,6 +4,8 @@ import Navbar from 'react-bootstrap/Navbar'
 import Offcanvas from 'react-bootstrap/Offcanvas'
 import { Link } from 'react-router'
 
+const baseUrl = '/wager-league'
+
 export default function NavDrawer({ user, setUser }) {
   return (
     <Navbar expand='md' className='bg-body-tertiary mb-3'>
@@ -23,16 +25,16 @@ export default function NavDrawer({ user, setUser }) {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <Nav className='justify-content-end flex-grow-1 pe-3'>
-              <Nav.Link as={Link} to='/'>
+              <Nav.Link as={Link} to={baseUrl}>
                 Home
               </Nav.Link>
               {/* <Nav.Link as={Link} to='/leagues'>
                 Leagues
               </Nav.Link> */}
-              <Nav.Link as={Link} to='/events'>
+              <Nav.Link as={Link} to={`${baseUrl}/events`}>
                 Events
               </Nav.Link>
-              <Nav.Link as={Link} to='/auth'>
+              <Nav.Link as={Link} to={`${baseUrl}/auth`}>
                 {user.username ? user.username : 'Sign Up or Log In'}
               </Nav.Link>
             </Nav>

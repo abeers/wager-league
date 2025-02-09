@@ -1,5 +1,7 @@
 import { Link } from 'react-router'
 
+const baseUrl = '/wager-league'
+
 export default function LandingPage() {
   return (
     <div className='landing-page'>
@@ -11,14 +13,14 @@ export default function LandingPage() {
         </p>
       </div>
       <div className='landing-container'>
-        <Link to='/leagues' className='landing-call-to-action'>
+        {/* <Link to='/leagues' className='landing-call-to-action'>
           <h2>Leagues</h2>
           <p>
             Create or join a league with a group of friends to keep track of
             results over many events
           </p>
-        </Link>
-        <Link to='/events' className='landing-call-to-action'>
+        </Link> */}
+        <Link to={`${baseUrl}/events`} className='landing-call-to-action'>
           <h2>Events</h2>
           <p>
             Create or join an event to predict as many or as few results as you
@@ -26,7 +28,7 @@ export default function LandingPage() {
           </p>
         </Link>
       </div>
-      <Link to='/auth'>Sign Up or Log In Now!</Link>
+      <Link to={`${baseUrl}/auth`}>Sign Up or Log In Now!</Link>
     </div>
   )
 }

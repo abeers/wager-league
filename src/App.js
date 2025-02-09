@@ -10,6 +10,8 @@ import AuthPage from './components/auth/AuthPage'
 import NavDrawer from './components/layout/NavDrawer'
 // import League from './Leagues/League'
 
+const baseUrl = '/wager-league'
+
 function App() {
   const [user, setUser] = useState({})
 
@@ -25,15 +27,22 @@ function App() {
     <>
       <NavDrawer user={user} setUser={setUser} />
       <Routes>
-        <Route index path='/wager-league' element={<LandingPage />} />
+        <Route index path='' element={<LandingPage />} />
         <Route
-          path='/auth'
+          path={`${baseUrl}/auth`}
           element={<AuthPage user={user} setUser={setUser} />}
         />
         {/* <Route path='/leagues' exact element={<Leagues user={user} />} />
         <Route path='/leagues/:leagueId' element={<League user={user} />} /> */}
-        <Route path='/events' exact element={<Events user={user} />} />
-        <Route path='/events/:eventId' element={<Event user={user} />} />
+        <Route
+          path={`${baseUrl}/events`}
+          exact
+          element={<Events user={user} />}
+        />
+        <Route
+          path={`${baseUrl}/events/:eventId`}
+          element={<Event user={user} />}
+        />
       </Routes>
     </>
   )
