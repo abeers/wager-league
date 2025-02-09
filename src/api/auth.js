@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const baseUrl = 'http://localhost:4000'
+const baseUrl = 'https://wager-league-api.onrender.com'
 
 export const signUp = (data) => {
   return axios({

@@ -5,10 +5,10 @@ import { Route, Routes } from 'react-router'
 import Events from './Events/Events'
 import Event from './Events/Event'
 import LandingPage from './LandingPage/LandingPage'
-import Leagues from './Leagues/Leagues'
+// import Leagues from './Leagues/Leagues'
 import AuthPage from './components/auth/AuthPage'
 import NavDrawer from './components/layout/NavDrawer'
-import League from './Leagues/League'
+// import League from './Leagues/League'
 
 function App() {
   const [user, setUser] = useState({})
@@ -25,7 +25,7 @@ function App() {
     <>
       <NavDrawer user={user} setUser={setUser} />
       <Routes>
-        <Route index element={<LandingPage />} />
+        <Route index path='/wager-league' element={<LandingPage />} />
         <Route
           path='/auth'
           element={<AuthPage user={user} setUser={setUser} />}

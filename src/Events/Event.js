@@ -11,7 +11,7 @@ import { useParams } from 'react-router'
 import DatePicker from 'react-datepicker'
 import CreatePropForm from '../Props/CreatePropForm'
 import Prop from '../Props/Prop'
-import { Dropdown, Form, Nav, Table } from 'react-bootstrap'
+import { Form, Nav, Table } from 'react-bootstrap'
 
 export default function Event({ user }) {
   const [event, setEvent] = useState({})
