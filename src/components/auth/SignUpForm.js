@@ -6,7 +6,7 @@ import { signIn, signUp } from '../../api/auth'
 
 const SignUpForm = ({ setUser }) => {
   const [formData, setFormData] = useState({
-    email: '',
+    // email: '',
     username: '',
     password: '',
     passwordConfirmation: '',
@@ -39,22 +39,22 @@ const SignUpForm = ({ setUser }) => {
     setFormData(updatedData)
   }
 
-  const { email, username, password, passwordConfirmation } = formData
+  const { username, password, passwordConfirmation } = formData
 
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId='username'>
-        <Form.Label>Username</Form.Label>
+        <Form.Label>Name</Form.Label>
         <Form.Control
           required
           type='text'
           name='username'
           value={username}
-          placeholder='Enter username'
+          placeholder='Enter name'
           onChange={handleChange}
         />
       </Form.Group>
-      <Form.Group controlId='email'>
+      {/* <Form.Group controlId='email'>
         <Form.Label>Email Address</Form.Label>
         <Form.Control
           required
@@ -64,7 +64,7 @@ const SignUpForm = ({ setUser }) => {
           placeholder='Enter email'
           onChange={handleChange}
         />
-      </Form.Group>
+      </Form.Group> */}
       <Form.Group controlId='password'>
         <Form.Label>Password</Form.Label>
         <Form.Control

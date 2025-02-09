@@ -26,8 +26,6 @@ export default function Events({ user }) {
     deleteEvent(id, user.token).then(refreshEvents)
   }
 
-  console.log('events: ', events)
-
   return (
     <div className='landing-page'>
       <div>

@@ -26,9 +26,9 @@ export default function NavDrawer({ user, setUser }) {
               <Nav.Link as={Link} to='/'>
                 Home
               </Nav.Link>
-              <Nav.Link as={Link} to='/leagues'>
+              {/* <Nav.Link as={Link} to='/leagues'>
                 Leagues
-              </Nav.Link>
+              </Nav.Link> */}
               <Nav.Link as={Link} to='/events'>
                 Events
               </Nav.Link>

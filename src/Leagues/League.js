@@ -25,8 +25,6 @@ export default function League({ user }) {
     refreshLeague()
   }, [refreshLeague])
 
-  console.log('league: ', league)
-
   const { name, members, events } = league
   const isCommissioner =
     members?.find(({ _id }) => _id === user._id).role === 'commissioner'

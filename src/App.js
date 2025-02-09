@@ -30,8 +30,8 @@ function App() {
           path='/auth'
           element={<AuthPage user={user} setUser={setUser} />}
         />
-        <Route path='/leagues' exact element={<Leagues user={user} />} />
-        <Route path='/leagues/:leagueId' element={<League user={user} />} />
+        {/* <Route path='/leagues' exact element={<Leagues user={user} />} />
+        <Route path='/leagues/:leagueId' element={<League user={user} />} /> */}
         <Route path='/events' exact element={<Events user={user} />} />
         <Route path='/events/:eventId' element={<Event user={user} />} />
       </Routes>

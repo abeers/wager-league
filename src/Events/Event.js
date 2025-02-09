@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import {
-  addEventToLeague,
-  getAddableLeagues,
+  // addEventToLeague,
+  // getAddableLeagues,
   getEvent,
   getEventStandings,
   getUserEvent,
@@ -20,7 +20,7 @@ export default function Event({ user }) {
   const [standings, setStandings] = useState([])
   const [selectedUser, setSelectedUser] = useState(user._id)
   const [selectedUserProps, setSelectedUserProps] = useState([])
-  const [addableLeagues, setAddableLeagues] = useState([])
+  // const [addableLeagues, setAddableLeagues] = useState([])
 
   let { eventId } = useParams()
 
@@ -38,9 +38,9 @@ export default function Event({ user }) {
     updateEvent(updatedData, user.token)
   }
 
-  const handleAddEventToLeague = (leagueId) => {
-    addEventToLeague(_id, leagueId, user.token)
-  }
+  // const handleAddEventToLeague = (leagueId) => {
+  //   addEventToLeague(_id, leagueId, user.token)
+  // }
 
   const refreshEventStandings = useCallback(
     () =>
@@ -60,15 +60,15 @@ export default function Event({ user }) {
     [eventId, user]
   )
 
-  const fetchAddableLeagues = useCallback(
-    () =>
-      user.token &&
-      getAddableLeagues(user.token)
-        .then((response) => response.data)
-        .then(({ addableLeagues }) => setAddableLeagues(addableLeagues))
-        .catch(console.error),
-    [user]
-  )
+  // const fetchAddableLeagues = useCallback(
+  //   () =>
+  //     user.token &&
+  //     getAddableLeagues(user.token)
+  //       .then((response) => response.data)
+  //       .then(({ addableLeagues }) => setAddableLeagues(addableLeagues))
+  //       .catch(console.error),
+  //   [user]
+  // )
 
   const fetchUserProps = useCallback(
     (userId) =>
@@ -76,7 +76,6 @@ export default function Event({ user }) {
       getUserEvent(eventId, userId, user.token)
         .then((response) => response.data)
         .then(({ event }) => {
-          console.log('after fetch')
           setSelectedUserProps([...event[0]?.props])
         })
         .catch(console.error),
@@ -88,8 +87,8 @@ export default function Event({ user }) {
 
   useEffect(() => {
     refreshEvent()
-    fetchAddableLeagues()
-  }, [user, refreshEvent, fetchAddableLeagues])
+    // fetchAddableLeagues()
+  }, [user, refreshEvent])
 
   useEffect(() => {
     eventKey === 'props' && refreshEvent()
@@ -98,7 +97,6 @@ export default function Event({ user }) {
   }, [eventKey, refreshEvent, refreshEventStandings])
 
   useEffect(() => {
-    console.log('here')
     selectedUser !== '' && fetchUserProps(selectedUser)
   }, [standings, selectedUser, fetchUserProps])
 
@@ -106,10 +104,6 @@ export default function Event({ user }) {
   const isOwner = user?._id === owner?._id
   const submissionDate = new Date(submissionDeadline)
 
-  console.log('selectedUserProps: ', selectedUserProps)
-  console.log('props: ', props)
-  console.log('standings: ', standings)
-  console.log('selectedUser: ', selectedUser)
   return (
     <div className='landing-page'>
       <h1 className='title-text'>{name}</h1>
@@ -136,7 +130,7 @@ export default function Event({ user }) {
           </span>
         )}
       </div>
-      <Dropdown>
+      {/* <Dropdown>
         <Dropdown.Toggle variant='secondary' id='dropdown-basic'>
           Add Event to League
         </Dropdown.Toggle>
@@ -148,7 +142,7 @@ export default function Event({ user }) {
             </Dropdown.Item>
           ))}
         </Dropdown.Menu>
-      </Dropdown>
+      </Dropdown> */}
       <Nav
         fill
         className='nav-justified'

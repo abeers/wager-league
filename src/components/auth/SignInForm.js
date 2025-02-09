@@ -38,13 +38,13 @@ const SignInForm = ({ setUser }) => {
   return (
     <Form onSubmit={handleSubmit}>
       <Form.Group controlId='username'>
-        <Form.Label>Username or Email Address</Form.Label>
+        <Form.Label>Name</Form.Label>
         <Form.Control
           required
           type='text'
           name='identifier'
           value={identifier}
-          placeholder='Enter username or email address'
+          placeholder='Enter name'
           onChange={handleChange}
         />
       </Form.Group>
