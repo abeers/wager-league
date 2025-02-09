@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/wager-league/static/css/main.9ba00a64.css",
-    "main.js": "/wager-league/static/js/main.02776aba.js",
+    "main.js": "/wager-league/static/js/main.73d4e7a5.js",
     "index.html": "/wager-league/index.html",
     "main.9ba00a64.css.map": "/wager-league/static/css/main.9ba00a64.css.map",
-    "main.02776aba.js.map": "/wager-league/static/js/main.02776aba.js.map"
+    "main.73d4e7a5.js.map": "/wager-league/static/js/main.73d4e7a5.js.map"
   },
   "entrypoints": [
     "static/css/main.9ba00a64.css",
-    "static/js/main.02776aba.js"
+    "static/js/main.73d4e7a5.js"
   ]
 }
